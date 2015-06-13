@@ -1,0 +1,35 @@
+{
+  "name": "autosize-input",
+  "version": "0.0.0",
+  "description": "Effortless, dynamic-width input elements in vanilla JavaScript.",
+  "author": "Lim Yuan Qing",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yuanqing/autosize-input.git"
+  },
+  "main": "autosize-input.js",
+  "devDependencies": {
+    "ecstatic": "^0.8.0",
+    "jshint": "^2.8.0",
+    "nightmare": "^1.8.2",
+    "tape": "^4.0.0",
+    "uglify-js": "^2.4.23"
+  },
+  "scripts": {
+    "start": "npm run build && open 'http://localhost:3142/example'; ecstatic --port 3142",
+    "lint": "jshint --verbose autosize-input.js test/*.js",
+    "test": "tape test/*.js",
+    "dist": "uglifyjs autosize-input.js --output autosize-input.min.js",
+    "build": "npm run lint && npm test && npm run dist"
+  },
+  "keywords": [
+    "autosize",
+    "dom",
+    "form",
+    "html",
+    "input",
+    "size",
+    "width"
+  ]
+}
