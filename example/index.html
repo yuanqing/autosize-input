@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>autosize-input</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <input type="text" id="foo" value="Nice">
+    <input type="text" id="bar" placeholder="People">
+    <input type="text" id="baz" placeholder="Matter">
+    <script src="../autosize-input.min.js"></script>
+    <script>
+      autosizeInput(document.querySelector('#foo'));
+      autosizeInput(document.querySelector('#bar'));
+      autosizeInput(document.querySelector('#baz'), { minWidth: true });
+    </script>
+  </body>
+</html>
