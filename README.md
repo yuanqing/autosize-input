@@ -7,7 +7,7 @@
 - Dynamically adjusts the width of the text `input` element to fit its current contents
 - Can be initialised to fit the element&rsquo;s `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- Super lightweight; just 1 KB [minified](autosize-input.min.js), or 0.57 KB minified and gzipped
+- Super lightweight; just 1.0 KB [minified](autosize-input.min.js), or 0.6 KB minified and gzipped
 
 ## Usage
 
@@ -45,7 +45,7 @@ var autosizeInput = require('autosize-input');
 
 `elem` is a text `input` element, and `opts` is an object literal.
 
-If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `opts.minWidth` to `true`. This will give `elem` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
+If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `opts.minWidth` to `true`. This will give the `elem` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
 
 See [Usage](#usage).
 
@@ -68,7 +68,7 @@ $ bower i --save yuanqing/autosize-input
 - [jQuery.Autosize.Input](https://github.com/MartinF/jQuery.Autosize.Input)
 - [React-Input-Autosize](https://github.com/JedWatson/react-input-autosize)
 
-I wrote `autosize-input` because I needed a standalone, lightweight solution to this rather common UI problem.
+This module was written because I needed a standalone, lightweight solution to this rather common UI problem.
 
 ## License
 
