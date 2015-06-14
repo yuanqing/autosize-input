@@ -1,7 +1,7 @@
 {
   "name": "autosize-input",
   "version": "0.0.0",
-  "description": "Effortless, dynamic-width input elements in vanilla JavaScript.",
+  "description": "Effortless, dynamic-width `input` elements in vanilla JavaScript.",
   "author": "Lim Yuan Qing",
   "license": "MIT",
   "repository": {
