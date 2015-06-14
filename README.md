@@ -9,8 +9,6 @@
 - Optionally set a `min-width` based on the element&rsquo;s initial content
 - Super lightweight; just 1 KB [minified](autosize-input.min.js), or 0.57 KB minified and gzipped
 
-Under the hood, `autosize-input` uses a hidden &ldquo;dummy&rdquo; `div` (with the same `font-size` and `font-family` as the original `input` element) to determine the correct width to assign to the `input` element.
-
 ## Usage
 
 > [**Editable demo**](http://jsfiddle.net/5u4o001z/)
@@ -28,6 +26,12 @@ Under the hood, `autosize-input` uses a hidden &ldquo;dummy&rdquo; `div` (with t
   </script>
 </body>
 ```
+
+## Implementation details
+
+The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) property of the given `input` element is set, inline, to `content-box`.
+
+Under the hood, `autosize-input` uses a hidden &ldquo;ghost&rdquo; `div` (with the same `font-size` and `font-family` as the original `input` element) to determine the correct width to assign to the `input` element.
 
 ## API
 
