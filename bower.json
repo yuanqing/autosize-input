@@ -1,7 +1,7 @@
 {
   "name": "autosize-input",
   "main": "autosize-input.min.js",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "https://github.com/yuanqing/autosize-input",
   "authors": [
     "Lim Yuan Qing"
