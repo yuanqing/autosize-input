@@ -1,4 +1,4 @@
-# autosize-input.js [![npm Version](http://img.shields.io/npm/v/autosize-input.svg?style=flat)](https://www.npmjs.org/package/autosize-input) [![Build Status](https://img.shields.io/travis/yuanqing/autosize-input.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/autosize-input) [![Coverage Status](https://img.shields.io/coveralls/yuanqing/autosize-input.svg?style=flat)](https://coveralls.io/r/yuanqing/autosize-input)
+# autosize-input.js [![npm Version](http://img.shields.io/npm/v/autosize-input.svg?style=flat)](https://www.npmjs.org/package/autosize-input) [![Build Status](https://img.shields.io/travis/yuanqing/autosize-input.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/autosize-input)
 
 > Effortless, dynamic-width `input` elements in vanilla JavaScript.
 
@@ -13,7 +13,7 @@ Under the hood, `autosize-input` uses a hidden &ldquo;dummy&rdquo; `div` (with t
 
 ## Usage
 
-> [**Editable demo**](http://jsfiddle.net/)
+> [**Editable demo**](http://jsfiddle.net/5u4o001z/)
 
 ```html
 <body>
@@ -47,13 +47,24 @@ See [Usage](#usage).
 
 ## Installation
 
+Install via [npm](https://npmjs.com):
+
 ```
 $ npm i --save autosize-input
 ```
 
+Install via [bower](http://bower.io):
+
 ```
 $ bower i --save yuanqing/autosize-input
 ```
+
+## Prior art
+
+- [jQuery.Autosize.Input](https://github.com/MartinF/jQuery.Autosize.Input)
+- [React-Input-Autosize](https://github.com/JedWatson/react-input-autosize)
+
+I wrote `autosize-input` because I needed a standalone, lightweight solution to this rather common UI problem.
 
 ## License
 
