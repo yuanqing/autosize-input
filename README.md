@@ -11,7 +11,7 @@
 
 ## Usage
 
-> [**Editable demo**](http://jsfiddle.net/5u4o001z/)
+> [**Editable demo**](http://jsfiddle.net/98k622ah/)
 
 ```html
 <body>
