@@ -1,13 +1,13 @@
 # autosize-input.js [![npm Version](http://img.shields.io/npm/v/autosize-input.svg?style=flat)](https://www.npmjs.org/package/autosize-input) [![Build Status](https://img.shields.io/travis/yuanqing/autosize-input.svg?branch=master&style=flat)](https://travis-ci.org/yuanqing/autosize-input)
 
-> Effortless, dynamic-width `input` elements in vanilla JavaScript.
+> Effortless, dynamic-width text boxes in vanilla JavaScript.
 
 ## Features
 
-- Dynamically adjusts the width of the text `input` element to fit its current contents
-- Can be initialised to fit the element&rsquo;s `placeholder` attribute
+- Dynamically adjusts the width of the text box to fit its current contents
+- Can be initialised to fit its `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- Super lightweight; just 1.0 KB [minified](autosize-input.min.js), or 0.6 KB minified and gzipped
+- Super lightweight; just 1.1 KB [minified](autosize-input.min.js), or 0.6 KB minified and gzipped
 
 ## Usage
 
@@ -29,9 +29,11 @@
 
 ## Implementation details
 
-The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) property of the given `input` element is set, inline, to `content-box`.
+- The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) property of the given text box is set, inline, to `content-box`. Therefore, the width we assign to our text box *excludes* its `padding` and `border` properties.
 
-Under the hood, `autosize-input` uses a hidden &ldquo;ghost&rdquo; `div` (with the same `font-size` and `font-family` as the original `input` element) to determine the correct width to assign to the `input` element.
+- A hidden &ldquo;ghost&rdquo; `div` &mdash; given the same `font-size` and `font-family` as the text box &mdash; is used to compute the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
+
+- The single &ldquo;ghost&rdquo; element is shared amongst all the &ldquo;autosized&rdquo; text boxes on the page.
 
 ## API
 
@@ -61,6 +63,20 @@ Install via [bower](http://bower.io):
 
 ```
 $ bower i --save yuanqing/autosize-input
+```
+
+## Tests
+
+To test manually, in the browser, do:
+
+```
+$ npm start
+```
+
+To run the programmatic tests (in [PhantomJS](http://phantomjs.org/) via [Nightmare](https://github.com/segmentio/nightmare)), do:
+
+```
+$ npm test
 ```
 
 ## Prior art
