@@ -1,10 +1,10 @@
-(function(root) {
+(function() {
 
   'use strict';
 
   // Compile and cache the needed regular expressions.
   var SPACE = /\s/g;
-  var LESS_THAN = /\>/g;
+  var LESS_THAN = />/g;
   var MORE_THAN = /</g;
 
   // We need to swap out these characters with their character-entity
@@ -16,29 +16,30 @@
               .replace(MORE_THAN, '&gt;');
   }
 
-  // Inline styles to hide the `ghost` element.
-  var ghostStyle = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap';
+  // Create the `ghost` element, with inline styles to hide it and ensure that
+  // the text is all on a single line.
+  var ghost = document.createElement('div');
+  ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;';
+  document.body.appendChild(ghost);
 
   function autosizeInput(elem, opts) {
 
     // Force `content-box` on the `elem`.
     elem.style.boxSizing = 'content-box';
 
-    // Create the `ghost` element.
-    var ghost = document.createElement('div');
-    document.body.appendChild(ghost);
-
     // Apply the `font-size` and `font-family` styles of `elem` on the
     // `ghost` element.
     var elemStyle = window.getComputedStyle(elem);
-    ghost.style.cssText = ghostStyle +
-      ';font-family:' + elemStyle.fontFamily +
-      ';font-size:'   + elemStyle.fontSize;
+    var elemCssText = 'font-family:' + elemStyle.fontFamily +
+                     ';font-size:'   + elemStyle.fontSize;
 
-    // Helper function that sets the contents of `ghost` to `str`, before
-    // copying the new width of `ghost` to `elem`.
+    // Helper function that:
+    // 1. Copies the `font-family` and `font-size` of our `elem` onto `ghost`
+    // 2. Sets the contents of `ghost` to the specified `str`
+    // 3. Copies the width of `ghost` onto our `elem`
     function set(str) {
       str = str || elem.value || elem.getAttribute('placeholder') || '';
+      ghost.style.cssText += elemCssText;
       ghost.innerHTML = escape(str);
       var width = window.getComputedStyle(ghost).width;
       elem.style.width = width;
@@ -50,23 +51,23 @@
       set();
     });
 
-    // Set the initial value of `ghost` to the `value` or `placeholder`
-    // of `elem`.
+    // Initialise the `elem` width.
     var width = set();
 
     // Set `min-width` if `opts.minWidth` was set, and only if the initial
     // width is non-zero.
     if (opts && opts.minWidth && width !== '0px') {
-      ghost.style.minWidth = width;
+      elem.style.minWidth = width;
     }
 
+    // Return the `set` function.
     return set;
   }
 
   if (typeof module == 'object') {
     module.exports = autosizeInput;
   } else {
-    root.autosizeInput = autosizeInput;
+    window.autosizeInput = autosizeInput;
   }
 
-})(this);
+})();
