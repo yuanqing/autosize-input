@@ -7,7 +7,7 @@
 - Dynamically adjusts the width of the text box to fit its current contents
 - Can be initialised to fit its `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- Super lightweight; just 1.1 KB [minified](autosize-input.min.js), or 0.6 KB minified and gzipped
+- Super lightweight; just 0.84 KB [minified](autosize-input.min.js), or 0.52 KB minified and gzipped
 
 ## Usage
 

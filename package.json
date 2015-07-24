@@ -20,7 +20,7 @@
     "start": "npm run dist && open 'http://localhost:3142/example'; ecstatic --port 3142",
     "lint": "jshint --verbose autosize-input.js test/*.js",
     "test": "tape test/*.js",
-    "dist": "uglifyjs autosize-input.js --output autosize-input.min.js",
+    "dist": "uglifyjs autosize-input.js --mangle --output autosize-input.min.js",
     "build": "npm run lint && npm test && npm run dist"
   },
   "keywords": [
