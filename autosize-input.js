@@ -16,12 +16,6 @@
               .replace(MORE_THAN, '&gt;');
   }
 
-  // Create the `ghost` element, with inline styles to hide it and ensure that
-  // the text is all on a single line.
-  var ghost = document.createElement('div');
-  ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;';
-  document.body.appendChild(ghost);
-
   function autosizeInput(elem, opts) {
 
     // Force `content-box` on the `elem`.
@@ -33,12 +27,27 @@
     var elemCssText = 'font-family:' + elemStyle.fontFamily +
                      ';font-size:'   + elemStyle.fontSize;
 
+    // Helper function to get the ghost div or create it if is is not present in the DOM
+    function findOrCreateGhostDiv() {
+      var ghost = document.getElementById('_autosize-ghost');
+      if (ghost == null) {
+        // Create the `ghost` element, with inline styles to hide it and ensure that
+        // the text is all on a single line.
+        ghost = document.createElement('div');
+        ghost.setAttribute('id','_autosize-ghost');
+        ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;';
+        document.body.appendChild(ghost);
+      }
+      return ghost;
+    }
+
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `elem` onto `ghost`
     // 2. Sets the contents of `ghost` to the specified `str`
     // 3. Copies the width of `ghost` onto our `elem`
     function set(str) {
       str = str || elem.value || elem.getAttribute('placeholder') || '';
+      var ghost = findOrCreateGhostDiv();
       ghost.style.cssText += elemCssText;
       ghost.innerHTML = escape(str);
       var width = window.getComputedStyle(ghost).width;
