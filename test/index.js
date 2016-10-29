@@ -1,87 +1,90 @@
-'use strict';
+const http = require('http')
+const path = require('path')
+const tape = require('tape')
+const ecstatic = require('ecstatic')
+const Nightmare = require('nightmare')
 
-var http = require('http');
-var test = require('tape');
-var ecstatic = require('ecstatic');
-var Nightmare = require('nightmare');
+const PORT = 4242
+const ROOT_DIR = path.resolve(__dirname, '..')
+const FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
 
-var PORT = 4242;
-var ROOT_DIR = __dirname + '/../';
-var FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/';
-
-var fn = function(value, expectedId) {
+const fn = function (value, expectedId) {
   // Code run in the browser to check:
-  // 1. The value of our `input` field
+  // 1. The value of our `input` field.
   // 2. The width of our `input` field against the width of the element with
-  // specified `expectedId`
-  var input = document.querySelector('input');
-  var expected = document.querySelector(expectedId);
-  return input.value === value && window.getComputedStyle(input).width === window.getComputedStyle(expected).width;
-};
+  // the specified `expectedId`.
+  const input = document.querySelector('input')
+  const expected = document.querySelector(expectedId)
+  return input.value === value && window.getComputedStyle(input).width === window.getComputedStyle(expected).width
+}
 
-var cb = function(t) {
-  // Assert that the `result` returned from `fn` is true.
-  return function(result) {
-    t.true(result);
-  };
-};
+const nightmareOptions = {
+  show: true
+}
 
-test('autosize-input', function(t) {
+let server
 
-  var browser;
-  var server;
+const setUp = function (t) {
+  t.plan(1)
+  server = http.createServer(ecstatic({
+    root: ROOT_DIR
+  })).listen(PORT, function () {
+    t.pass()
+  })
+}
 
-  t.test('set up', function(t) {
-    t.plan(1);
-    browser = new Nightmare();
-    server = http.createServer(ecstatic({
-      root: ROOT_DIR
-    })).listen(PORT, function() {
-      t.pass();
-    });
-  });
+const tearDown = function (t) {
+  t.plan(1)
+  server.close(function () {
+    t.pass()
+  })
+}
 
-  t.test('value', function(t) {
-    t.plan(3);
-    browser
-      .goto(FIXTURES_URL + 'value.html')
-      .evaluate(fn, cb(t), '', '#initial')
-      .type('input', 'x')
-      .evaluate(fn, cb(t), 'x', '#singleLetter')
-      .type('input', ' <foo> ')
-      .evaluate(fn, cb(t), 'x <foo> ', '#specialCharacters')
-      .run();
-  });
+const test = function (name) {
+  return function (t) {
+    const fixture = FIXTURES_URL + name + '.html'
 
-  t.test('placeholder', function(t) {
-    t.plan(3);
-    browser
-      .goto(FIXTURES_URL + 'placeholder.html')
-      .evaluate(fn, cb(t), '', '#initial')
-      .type('input', 'x')
-      .evaluate(fn, cb(t), 'x', '#singleLetter')
-      .type('input', ' <foo> ')
-      .evaluate(fn, cb(t), 'x <foo> ', '#specialCharacters')
-      .run();
-  });
+    t.test('set up', setUp)
 
-  t.test('placeholder, min-width', function(t) {
-    t.plan(3);
-    browser
-      .goto(FIXTURES_URL + 'placeholder-min-width.html')
-      .evaluate(fn, cb(t), '', '#initial')
-      .type('input', 'x')
-      .evaluate(fn, cb(t), 'x', '#initial')
-      .type('input', ' <foo> ')
-      .evaluate(fn, cb(t), 'x <foo> ', '#specialCharacters')
-      .run();
-  });
+    t.test('initial', function (t) {
+      t.plan(1)
+      new Nightmare(nightmareOptions)
+        .goto(fixture)
+        .evaluate(fn, '', '#initial')
+        .end()
+        .then(function (result) {
+          t.true(result)
+        })
+    })
 
-  t.test('teardown', function(t) {
-    t.plan(1);
-    server.close(function() {
-      t.pass();
-    });
-  });
+    t.test('single character', function (t) {
+      t.plan(1)
+      new Nightmare(nightmareOptions)
+        .goto(fixture)
+        .type('input', 'x')
+        .evaluate(fn, 'x', '#singleCharacter')
+        .end()
+        .then(function (result) {
+          t.true(result)
+        })
+    })
 
-});
+    t.test('special characters', function (t) {
+      t.plan(1)
+      new Nightmare(nightmareOptions)
+        .goto(fixture)
+        .type('input', 'x <foo> ')
+        .evaluate(fn, 'x <foo> ', '#specialCharacters')
+        .end()
+        .then(function (result) {
+          t.true(result)
+        })
+    })
+
+    t.test('tear down', tearDown)
+  }
+}
+
+tape('value', test('value'))
+tape('placeholder', test('placeholder'))
+tape('placeholder, min-width', test('placeholder-min-width'))
