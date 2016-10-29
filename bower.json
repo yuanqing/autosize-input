@@ -6,7 +6,7 @@
   "authors": [
     "Lim Yuan Qing"
   ],
-  "description": "Effortless, dynamic-width input elements in vanilla JavaScript.",
+  "description": "Effortless, dynamic-width text boxes in vanilla JavaScript.",
   "license": "MIT",
   "ignore": [
     "**/.*",
