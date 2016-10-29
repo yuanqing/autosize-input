@@ -15,7 +15,9 @@ const fn = function (value, expectedId) {
   // the specified `expectedId`.
   const input = document.querySelector('input')
   const expected = document.querySelector(expectedId)
-  return input.value === value && window.getComputedStyle(input).width === window.getComputedStyle(expected).width
+  const inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
+  const expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
+  return input.value === value && inputWidth === expectedWidth
 }
 
 const nightmareOptions = {
@@ -50,6 +52,7 @@ const test = function (name) {
       t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
+        .wait('input')
         .evaluate(fn, '', '#initial')
         .end()
         .then(function (result) {
@@ -61,6 +64,7 @@ const test = function (name) {
       t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
+        .wait('input')
         .type('input', 'x')
         .evaluate(fn, 'x', '#singleCharacter')
         .end()
@@ -73,6 +77,7 @@ const test = function (name) {
       t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
+        .wait('input')
         .type('input', 'x <foo> ')
         .evaluate(fn, 'x <foo> ', '#specialCharacters')
         .end()
