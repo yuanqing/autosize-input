@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0
+- Account for case where the &ldquo;ghost&rdquo; element may have been removed from the DOM
+
 ## 0.2.0
 - Share a single &ldquo;ghost&rdquo; element, as opposed to creating a new &ldquo;ghost&rdquo; element for every text box
 
