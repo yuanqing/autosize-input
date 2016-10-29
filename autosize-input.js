@@ -1,6 +1,4 @@
 (function () {
-  'use strict'
-
   // Compile and cache the needed regular expressions.
   var SPACE = /\s/g
   var LESS_THAN = />/g
