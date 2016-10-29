@@ -13,8 +13,8 @@
     "ecstatic": "2.1.0",
     "nightmare": "2.8.1",
     "standard": "8.5.0",
-    "tape": "4.0.0",
-    "uglify-js": "2.4.23"
+    "tape": "4.6.2",
+    "uglify-js": "2.7.4"
   },
   "scripts": {
     "start": "npm run dist && open 'http://localhost:3142/example'; ecstatic --port 3142",
