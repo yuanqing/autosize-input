@@ -13,21 +13,17 @@
               .replace(MORE_THAN, '&gt;')
   }
 
-  // Helper function that returns the `ghost` div, creating it if it doesn't
-  // already exist in the DOM.
-  var GHOST_ID = '__autosizeInputGhost'
-  function getGhostElement () {
-    var ghost = document.getElementById(GHOST_ID)
-    if (ghost == null) {
-      // Create the `ghost` element, with inline styles to hide it and ensure
-      // that the text is all on a single line.
-      ghost = document.createElement('div')
-      ghost.setAttribute('id', GHOST_ID)
-      ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
-      document.body.appendChild(ghost)
-    }
+  // Create the `ghost` element, with inline styles to hide it and ensure
+  // that the text is all on a single line.
+  function createGhostElement () {
+    var ghost = document.createElement('div')
+    ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
+    document.body.appendChild(ghost)
     return ghost
   }
+
+  // Create the `ghost` element.
+  var ghost = createGhostElement()
 
   function autosizeInput (elem, opts) {
     // Force `content-box` on the `elem`.
@@ -45,7 +41,10 @@
     // 3. Copies the width of `ghost` onto our `elem`.
     function set (str) {
       str = str || elem.value || elem.getAttribute('placeholder') || ''
-      var ghost = getGhostElement()
+      // Ensure that the `ghost` element still exists. If not, create it.
+      if (ghost.parentNode == null) {
+        ghost = createGhostElement()
+      }
       ghost.style.cssText += elemCssText
       ghost.innerHTML = escape(str)
       var width = window.getComputedStyle(ghost).width
