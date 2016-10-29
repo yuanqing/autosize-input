@@ -7,7 +7,7 @@
 - Dynamically adjusts the width of the text box to fit its current contents
 - Can be initialised to fit its `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- Super lightweight; just 0.84 KB [minified](autosize-input.min.js), or 0.52 KB minified and gzipped
+- Super lightweight; just 0.96 KB [minified](autosize-input.min.js), or 0.57 KB minified and gzipped
 
 ## Usage
 
@@ -18,7 +18,7 @@
   <input type="text" id="foo" value="Nice">
   <input type="text" id="bar" placeholder="People">
   <input type="text" id="baz" placeholder="Matter">
-  <script src="../autosize-input.min.js"></script>
+  <script src="autosize-input.min.js"></script>
   <script>
     autosizeInput(document.querySelector('#foo'));
     autosizeInput(document.querySelector('#bar'));
@@ -40,7 +40,7 @@
 In the browser, `autosizeInput` is a global variable. In Node, do:
 
 ```js
-var autosizeInput = require('autosize-input');
+const autosizeInput = require('autosize-input');
 ```
 
 ### autosizeInput(elem [, opts])
@@ -55,27 +55,21 @@ See [Usage](#usage).
 
 Install via [npm](https://npmjs.com):
 
-```
-$ npm i --save autosize-input
-```
-
-Install via [bower](http://bower.io):
-
-```
-$ bower i --save yuanqing/autosize-input
+```sh
+$ npm install --save autosize-input
 ```
 
 ## Tests
 
 To test manually, in the browser, do:
 
-```
+```sh
 $ npm start
 ```
 
 To run the programmatic tests (in [PhantomJS](http://phantomjs.org/) via [Nightmare](https://github.com/segmentio/nightmare)), do:
 
-```
+```sh
 $ npm test
 ```
 
