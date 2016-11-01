@@ -32,8 +32,20 @@
     // Apply the `font-size` and `font-family` styles of `elem` on the
     // `ghost` element.
     var elemStyle = window.getComputedStyle(elem)
-    var elemCssText = 'font-family:' + elemStyle.fontFamily +
-                     ';font-size:' + elemStyle.fontSize
+    var elemCssText = 'letter-spacing:' + elemStyle.letterSpacing +
+                     ';font-feature-settings:' + elemStyle.fontFeatureSettings +
+                     ';font-family:' + elemStyle.fontFamily +
+                     ';font-kerning:' + elemStyle.fontKerning +
+                     ';font-size:' + elemStyle.fontSize +
+                     ';font-stretch:' + elemStyle.fontStretch +
+                     ';font-style:' + elemStyle.fontStyle +
+                     ';font-variant:' + elemStyle.fontVariant +
+                     ';font-variant-caps:' + elemStyle.fontVariantCaps +
+                     ';font-variant-ligatures:' + elemStyle.fontVariantLigatures +
+                     ';font-variant-numeric:' + elemStyle.fontVariantNumeric +
+                     ';font-weight:' + elemStyle.fontWeight +
+                     ';text-indent:' + elemStyle.textIndent +
+                     ';text-transform:' + elemStyle.textTransform
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `elem` onto `ghost`.
