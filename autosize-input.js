@@ -15,8 +15,10 @@
 
   // Create the `ghost` element, with inline styles to hide it and ensure
   // that the text is all on a single line.
+  var GHOST_ELEMENT_ID = '__autosizeInputGhost'
   function createGhostElement () {
     var ghost = document.createElement('div')
+    ghost.id = GHOST_ELEMENT_ID
     ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
     document.body.appendChild(ghost)
     return ghost
@@ -42,7 +44,7 @@
     function set (str) {
       str = str || elem.value || elem.getAttribute('placeholder') || ''
       // Ensure that the `ghost` element still exists. If not, create it.
-      if (ghost.parentNode == null) {
+      if (document.getElementById(GHOST_ELEMENT_ID) === null) {
         ghost = createGhostElement()
       }
       ghost.style.cssText += elemCssText
