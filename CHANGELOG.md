@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.1
+- Assign an `id` to the &ldquo;ghost&rdquo; element, and use `document.getElementById` to detect if the element still exists in the DOM.
+
 ## 0.3.0
 - Account for case where the &ldquo;ghost&rdquo; element may have been removed from the DOM
 
