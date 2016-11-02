@@ -43,11 +43,11 @@ In the browser, `autosizeInput` is a global variable. In Node, do:
 const autosizeInput = require('autosize-input');
 ```
 
-### autosizeInput(elem [, opts])
+### autosizeInput(element [, options])
 
-`elem` is a text `input` element, and `opts` is an object literal.
+`element` is a text `input` element, and `options` is an object literal.
 
-If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `opts.minWidth` to `true`. This will give the `elem` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
+If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `options.minWidth` to `true`. This will give the `element` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
 
 See [Usage](#usage).
 

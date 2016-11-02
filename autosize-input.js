@@ -27,45 +27,45 @@
   // Create the `ghost` element.
   var ghost = createGhostElement()
 
-  function autosizeInput (elem, opts) {
-    // Force `content-box` on the `elem`.
-    elem.style.boxSizing = 'content-box'
+  function autosizeInput (element, options) {
+    // Force `content-box` on the `element`.
+    element.style.boxSizing = 'content-box'
 
-    // Apply the `font-size` and `font-family` styles of `elem` on the
+    // Apply the `font-size` and `font-family` styles of `element` on the
     // `ghost` element.
-    var elemStyle = window.getComputedStyle(elem)
-    var elemCssText = 'font-family:' + elemStyle.fontFamily +
-                     ';font-size:' + elemStyle.fontSize
+    var elementStyle = window.getComputedStyle(element)
+    var elementCssText = 'font-family:' + elementStyle.fontFamily +
+                     ';font-size:' + elementStyle.fontSize
 
     // Helper function that:
-    // 1. Copies the `font-family` and `font-size` of our `elem` onto `ghost`.
+    // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
     // 2. Sets the contents of `ghost` to the specified `str`.
-    // 3. Copies the width of `ghost` onto our `elem`.
+    // 3. Copies the width of `ghost` onto our `element`.
     function set (str) {
-      str = str || elem.value || elem.getAttribute('placeholder') || ''
-      // Ensure that the `ghost` element still exists. If not, create it.
+      str = str || element.value || element.getAttribute('placeholder') || ''
+      // Check if the `ghost` element still exists. If no, create it.
       if (document.getElementById(GHOST_ELEMENT_ID) === null) {
         ghost = createGhostElement()
       }
-      ghost.style.cssText += elemCssText
+      ghost.style.cssText += elementCssText
       ghost.innerHTML = escape(str)
       var width = window.getComputedStyle(ghost).width
-      elem.style.width = width
+      element.style.width = width
       return width
     }
 
     // Call `set` on every `input` event (IE9+).
-    elem.addEventListener('input', function () {
+    element.addEventListener('input', function () {
       set()
     })
 
-    // Initialise the `elem` width.
+    // Initialise the `element` width.
     var width = set()
 
-    // Set `min-width` if `opts.minWidth` was set, and only if the initial
+    // Set `min-width` if `options.minWidth` was set, and only if the initial
     // width is non-zero.
-    if (opts && opts.minWidth && width !== '0px') {
-      elem.style.minWidth = width
+    if (options && options.minWidth && width !== '0px') {
+      element.style.minWidth = width
     }
 
     // Return the `set` function.
