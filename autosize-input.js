@@ -35,7 +35,7 @@
     // `ghost` element.
     var elementStyle = window.getComputedStyle(element)
     var elementCssText = 'font-family:' + elementStyle.fontFamily +
-                     ';font-size:' + elementStyle.fontSize
+                        ';font-size:' + elementStyle.fontSize
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
