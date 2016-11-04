@@ -35,8 +35,14 @@
                         ';font-size:' + elementStyle.fontSize +
                         ';box-sizing:' + elementStyle.boxSizing +
                         // TODO: Verify these cover padding left/right/etc
-                        ';padding:' + elementStyle.padding +
-                        ';margin:' + elementStyle.margin
+                        ';padding-top:' + elementStyle.paddingTop +
+                        ';padding-right:' + elementStyle.paddingRight +
+                        ';padding-bottom:' + elementStyle.paddingBottom +
+                        ';padding-left:' + elementStyle.paddingLeft +
+                        ';margin-top:' + elementStyle.marginTop +
+                        ';margin-right:' + elementStyle.marginRight +
+                        ';margin-bottom:' + elementStyle.marginBottom +
+                        ';margin-left:' + elementStyle.marginLeft
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
