@@ -90,6 +90,7 @@ const test = function (name) {
   }
 }
 
-tape('value', test('value'))
-tape('placeholder', test('placeholder'))
-tape('placeholder, min-width', test('placeholder-min-width'))
+// tape('value', test('value'))
+// tape('placeholder', test('placeholder'))
+// tape('placeholder, min-width', test('placeholder-min-width'))
+tape('border-box', test('border-box'))
