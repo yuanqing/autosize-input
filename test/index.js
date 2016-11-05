@@ -4,7 +4,7 @@ const tape = require('tape')
 const ecstatic = require('ecstatic')
 const Nightmare = require('nightmare')
 
-const PORT = 4245
+const PORT = 4242
 const ROOT_DIR = path.resolve(__dirname, '..')
 const FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
 
@@ -17,7 +17,7 @@ const fn = function (value, expectedId) {
   const expected = document.querySelector(expectedId)
   const inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
   const expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
-  return {actualValue: input.value, expectedValue: value, actualWidth: inputWidth, expectedWidth: expectedWidth}
+  return input.value === value && inputWidth === expectedWidth
 }
 
 const nightmareOptions = {
@@ -45,26 +45,23 @@ const tearDown = function (t) {
 const test = function (name) {
   return function (t) {
     const fixture = FIXTURES_URL + name + '.html'
-    console.log(fixture);
 
     t.test('set up', setUp)
 
     t.test('initial', function (t) {
-      t.plan(2)
+      t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
         .evaluate(fn, '', '#initial')
         .end()
         .then(function (result) {
-          console.log(result);
-          t.equal(result.actualValue, result.expectedValue)
-          t.equal(result.actualWidth, result.expectedWidth)
+          t.true(result)
         })
     })
 
     t.test('single character', function (t) {
-      t.plan(2)
+      t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
@@ -72,14 +69,12 @@ const test = function (name) {
         .evaluate(fn, 'x', '#singleCharacter')
         .end()
         .then(function (result) {
-          console.log(result);
-          t.equal(result.actualValue, result.expectedValue)
-          t.equal(result.actualWidth, result.expectedWidth)
+          t.true(result)
         })
     })
 
     t.test('special characters', function (t) {
-      t.plan(2)
+      t.plan(1)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
@@ -87,9 +82,7 @@ const test = function (name) {
         .evaluate(fn, 'x <foo> ', '#specialCharacters')
         .end()
         .then(function (result) {
-          console.log(result);
-          t.equal(result.actualValue, result.expectedValue)
-          t.equal(result.actualWidth, result.expectedWidth)
+          t.true(result)
         })
     })
 

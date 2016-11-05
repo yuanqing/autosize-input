@@ -54,7 +54,7 @@
                            ';position:absolute;top:0;visibility:hidden;white-space:nowrap;' +
                            elementCssText
       ghost.innerHTML = escape(str)
-      var width =  window.getComputedStyle(ghost).width
+      var width = window.getComputedStyle(ghost).width
       element.style.width = width
       return width
     }
