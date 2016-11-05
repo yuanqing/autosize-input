@@ -17,7 +17,7 @@ const fn = function (value, expectedId) {
   const expected = document.querySelector(expectedId)
   const inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
   const expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
-  return input.value === value && inputWidth === expectedWidth
+  return {actualValue: input.value, expectedValue: value, actualWidth: inputWidth, expectedWidth: expectedWidth}
 }
 
 const nightmareOptions = {
@@ -45,23 +45,26 @@ const tearDown = function (t) {
 const test = function (name) {
   return function (t) {
     const fixture = FIXTURES_URL + name + '.html'
+    console.log(fixture);
 
     t.test('set up', setUp)
 
     t.test('initial', function (t) {
-      t.plan(1)
+      t.plan(2)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
         .evaluate(fn, '', '#initial')
         .end()
         .then(function (result) {
-          t.true(result)
+          console.log(result);
+          t.equal(result.actualValue, result.expectedValue)
+          t.equal(result.actualWidth, result.expectedWidth)
         })
     })
 
     t.test('single character', function (t) {
-      t.plan(1)
+      t.plan(2)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
@@ -69,12 +72,14 @@ const test = function (name) {
         .evaluate(fn, 'x', '#singleCharacter')
         .end()
         .then(function (result) {
-          t.true(result)
+          console.log(result);
+          t.equal(result.actualValue, result.expectedValue)
+          t.equal(result.actualWidth, result.expectedWidth)
         })
     })
 
     t.test('special characters', function (t) {
-      t.plan(1)
+      t.plan(2)
       new Nightmare(nightmareOptions)
         .goto(fixture)
         .wait('input')
@@ -82,7 +87,9 @@ const test = function (name) {
         .evaluate(fn, 'x <foo> ', '#specialCharacters')
         .end()
         .then(function (result) {
-          t.true(result)
+          console.log(result);
+          t.equal(result.actualValue, result.expectedValue)
+          t.equal(result.actualWidth, result.expectedWidth)
         })
     })
 
