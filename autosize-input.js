@@ -33,7 +33,7 @@
     var elementCssText = 'font-family:' + elementStyle.fontFamily +
                         ';font-size:' + elementStyle.fontSize +
                         ';box-sizing:' + elementStyle.boxSizing +
-                        ';display:' + elementStyle.display +
+                        ';display:inline-block' +
                         // TODO: Verify these cover padding left/right/etc
                         // TODO: Remove top/bottom styles as we don't need them
                         ';padding-left:' + elementStyle.paddingLeft +
@@ -42,6 +42,7 @@
                         ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
                         ';margin-left:' + elementStyle.marginLeft +
                         ';margin-right:' + elementStyle.marginRight
+console.log(elementCssText);
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
