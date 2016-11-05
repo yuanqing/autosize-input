@@ -36,18 +36,12 @@
                         ';display:' + elementStyle.display +
                         // TODO: Verify these cover padding left/right/etc
                         // TODO: Remove top/bottom styles as we don't need them
-                        ';padding-top:' + elementStyle.paddingTop +
-                        ';padding-right:' + elementStyle.paddingRight +
-                        ';padding-bottom:' + elementStyle.paddingBottom +
                         ';padding-left:' + elementStyle.paddingLeft +
-                        ';border-top:' + elementStyle.borderTopWidth + ' solid black' +
-                        ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
-                        ';border-bottom:' + elementStyle.borderBottomWidth + ' solid black' +
+                        ';padding-right:' + elementStyle.paddingRight +
                         ';border-left:' + elementStyle.borderLeftWidth + ' solid black' +
-                        ';margin-top:' + elementStyle.marginTop +
-                        ';margin-right:' + elementStyle.marginRight +
-                        ';margin-bottom:' + elementStyle.marginBottom +
-                        ';margin-left:' + elementStyle.marginLeft
+                        ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
+                        ';margin-left:' + elementStyle.marginLeft +
+                        ';margin-right:' + elementStyle.marginRight
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
@@ -61,19 +55,8 @@
       }
       ghost.style.cssText = 'height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;' + elementCssText
       ghost.innerHTML = escape(str)
-      var ghostStyle = window.getComputedStyle(ghost)
-      var width = parseInt(ghostStyle.width, 10)
-      // if (elementStyle.boxSizing === 'border-box') {
-      //   console.log('wat2', width)
-      //   width += parseInt(ghostStyle.borderLeftWidth, 10)
-      //   console.log('wat2', ghostStyle.borderLeftWidth)
-      //   width += parseInt(ghostStyle.borderRightWidth, 10)
-      //   console.log('wat2', width)
-      //   console.log('wat2', width)
-      // }
-      width = width.toString() + 'px'
-      console.log('wat', width);
-      element.style.width = width + 'px'
+      var width =  window.getComputedStyle(ghost).width
+      element.style.width = width
       return width
     }
 
