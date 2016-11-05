@@ -19,7 +19,6 @@
   function createGhostElement () {
     var ghost = document.createElement('div')
     ghost.id = GHOST_ELEMENT_ID
-    ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
     document.body.appendChild(ghost)
     return ghost
   }
@@ -34,11 +33,17 @@
     var elementCssText = 'font-family:' + elementStyle.fontFamily +
                         ';font-size:' + elementStyle.fontSize +
                         ';box-sizing:' + elementStyle.boxSizing +
+                        ';display:' + elementStyle.display +
                         // TODO: Verify these cover padding left/right/etc
+                        // TODO: Remove top/bottom styles as we don't need them
                         ';padding-top:' + elementStyle.paddingTop +
                         ';padding-right:' + elementStyle.paddingRight +
                         ';padding-bottom:' + elementStyle.paddingBottom +
                         ';padding-left:' + elementStyle.paddingLeft +
+                        ';border-top:' + elementStyle.borderTopWidth + ' solid black' +
+                        ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
+                        ';border-bottom:' + elementStyle.borderBottomWidth + ' solid black' +
+                        ';border-left:' + elementStyle.borderLeftWidth + ' solid black' +
                         ';margin-top:' + elementStyle.marginTop +
                         ';margin-right:' + elementStyle.marginRight +
                         ';margin-bottom:' + elementStyle.marginBottom +
@@ -54,10 +59,21 @@
       if (document.getElementById(GHOST_ELEMENT_ID) === null) {
         ghost = createGhostElement()
       }
-      ghost.style.cssText += elementCssText
+      ghost.style.cssText = 'height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;' + elementCssText
       ghost.innerHTML = escape(str)
-      var width = window.getComputedStyle(ghost).width
-      element.style.width = width
+      var ghostStyle = window.getComputedStyle(ghost)
+      var width = parseInt(ghostStyle.width, 10)
+      // if (elementStyle.boxSizing === 'border-box') {
+      //   console.log('wat2', width)
+      //   width += parseInt(ghostStyle.borderLeftWidth, 10)
+      //   console.log('wat2', ghostStyle.borderLeftWidth)
+      //   width += parseInt(ghostStyle.borderRightWidth, 10)
+      //   console.log('wat2', width)
+      //   console.log('wat2', width)
+      // }
+      width = width.toString() + 'px'
+      console.log('wat', width);
+      element.style.width = width + 'px'
       return width
     }
 

@@ -4,7 +4,7 @@ const tape = require('tape')
 const ecstatic = require('ecstatic')
 const Nightmare = require('nightmare')
 
-const PORT = 4242
+const PORT = 4245
 const ROOT_DIR = path.resolve(__dirname, '..')
 const FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
 
