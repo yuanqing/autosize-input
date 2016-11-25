@@ -1,32 +1,32 @@
-const http = require('http')
-const path = require('path')
-const tape = require('tape')
-const ecstatic = require('ecstatic')
-const Nightmare = require('nightmare')
+var http = require('http')
+var path = require('path')
+var tape = require('tape')
+var ecstatic = require('ecstatic')
+var Nightmare = require('nightmare')
 
-const PORT = 4242
-const ROOT_DIR = path.resolve(__dirname, '..')
-const FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
+var PORT = 4242
+var ROOT_DIR = path.resolve(__dirname, '..')
+var FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
 
-const fn = function (value, expectedId) {
+var fn = function (value, expectedId) {
   // Code run in the browser to check:
   // 1. The value of our `input` field.
   // 2. The width of our `input` field against the width of the element with
   // the specified `expectedId`.
-  const input = document.querySelector('input')
-  const expected = document.querySelector(expectedId)
-  const inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
-  const expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
+  var input = document.querySelector('input')
+  var expected = document.querySelector(expectedId)
+  var inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
+  var expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
   return input.value === value && inputWidth === expectedWidth
 }
 
-const nightmareOptions = {
+var nightmareOptions = {
   show: true
 }
 
-let server
+var server
 
-const setUp = function (t) {
+var setUp = function (t) {
   t.plan(1)
   server = http.createServer(ecstatic({
     root: ROOT_DIR
@@ -35,16 +35,16 @@ const setUp = function (t) {
   })
 }
 
-const tearDown = function (t) {
+var tearDown = function (t) {
   t.plan(1)
   server.close(function () {
     t.pass()
   })
 }
 
-const test = function (name) {
+var test = function (name) {
   return function (t) {
-    const fixture = FIXTURES_URL + name + '.html'
+    var fixture = FIXTURES_URL + name + '.html'
 
     t.test('set up', setUp)
 
