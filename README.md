@@ -29,9 +29,7 @@
 
 ## Implementation details
 
-- The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) property of the given text box is set, inline, to `content-box`. Therefore, the width we assign to our text box *excludes* its `padding` and `border` properties.
-
-- A hidden &ldquo;ghost&rdquo; `div` &mdash; given the same `font-size` and `font-family` as the text box &mdash; is used to compute the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
+- A hidden &ldquo;ghost&rdquo; `div` &mdash; given the same `font-size`, `font-family`, [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing), and horizontal `margin`, `border` and `padding` as the text box &mdash; is used to compute the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
 
 - The single &ldquo;ghost&rdquo; element is shared amongst all the &ldquo;autosized&rdquo; text boxes on the page.
 
