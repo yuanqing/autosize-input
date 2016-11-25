@@ -19,7 +19,6 @@
   function createGhostElement () {
     var ghost = document.createElement('div')
     ghost.id = GHOST_ELEMENT_ID
-    ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
     document.body.appendChild(ghost)
     return ghost
   }
@@ -28,14 +27,18 @@
   var ghost = createGhostElement()
 
   function autosizeInput (element, options) {
-    // Force `content-box` on the `element`.
-    element.style.boxSizing = 'content-box'
-
     // Apply the `font-size` and `font-family` styles of `element` on the
     // `ghost` element.
     var elementStyle = window.getComputedStyle(element)
     var elementCssText = 'font-family:' + elementStyle.fontFamily +
-                        ';font-size:' + elementStyle.fontSize
+                        ';font-size:' + elementStyle.fontSize +
+                        ';box-sizing:' + elementStyle.boxSizing +
+                        ';padding-left:' + elementStyle.paddingLeft +
+                        ';padding-right:' + elementStyle.paddingRight +
+                        ';border-left:' + elementStyle.borderLeftWidth + ' solid black' +
+                        ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
+                        ';margin-left:' + elementStyle.marginLeft +
+                        ';margin-right:' + elementStyle.marginRight
 
     // Helper function that:
     // 1. Copies the `font-family` and `font-size` of our `element` onto `ghost`.
@@ -47,7 +50,9 @@
       if (document.getElementById(GHOST_ELEMENT_ID) === null) {
         ghost = createGhostElement()
       }
-      ghost.style.cssText += elementCssText
+      ghost.style.cssText = 'display:inline-block;height:0;overflow:hidden' +
+                           ';position:absolute;top:0;visibility:hidden;white-space:nowrap;' +
+                           elementCssText
       ghost.innerHTML = escape(str)
       var width = window.getComputedStyle(ghost).width
       element.style.width = width
