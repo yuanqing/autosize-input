@@ -15,9 +15,11 @@
 
   // Create the `ghost` element, with inline styles to hide it and ensure
   // that the text is all on a single line.
+  var GHOST_ELEMENT_ID = '__autosizeInputGhost'
   function createGhostElement () {
     var ghost = document.createElement('div')
-    ghost.style.cssText = 'box-sizing:content-box;display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
+    ghost.id = GHOST_ELEMENT_ID
+    ghost.style.cssText = 'display:inline-block;height:0;overflow:hidden;position:absolute;top:0;visibility:hidden;white-space:nowrap;'
     document.body.appendChild(ghost)
     return ghost
   }
@@ -25,57 +27,60 @@
   // Create the `ghost` element.
   var ghost = createGhostElement()
 
-  function autosizeInput (elem, opts) {
-    // Force `content-box` on the `elem`.
-    elem.style.boxSizing = 'content-box'
-
-    // Apply the `font-size` and `font-family` styles of `elem` on the
-    // `ghost` element.
-    var elemStyle = window.getComputedStyle(elem)
-    var elemCssText = 'letter-spacing:' + elemStyle.letterSpacing +
-                     ';font-feature-settings:' + elemStyle.fontFeatureSettings +
-                     ';font-family:' + elemStyle.fontFamily +
-                     ';font-kerning:' + elemStyle.fontKerning +
-                     ';font-size:' + elemStyle.fontSize +
-                     ';font-stretch:' + elemStyle.fontStretch +
-                     ';font-style:' + elemStyle.fontStyle +
-                     ';font-variant:' + elemStyle.fontVariant +
-                     ';font-variant-caps:' + elemStyle.fontVariantCaps +
-                     ';font-variant-ligatures:' + elemStyle.fontVariantLigatures +
-                     ';font-variant-numeric:' + elemStyle.fontVariantNumeric +
-                     ';font-weight:' + elemStyle.fontWeight +
-                     ';text-indent:' + elemStyle.textIndent +
-                     ';text-transform:' + elemStyle.textTransform
+  function autosizeInput (element, options) {
+    // Copy all width-affecting styles to the ghost element
+    var elementStyle = window.getComputedStyle(element)
+    var elementCssText = 'box-sizing:' + elementStyle.boxSizing +
+                        ';border-left:' + elementStyle.borderLeftWidth + ' solid black' +
+                        ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
+                        ';font-family:' + elementStyle.fontFamily +
+                        ';font-feature-settings:' + elementStyle.fontFeatureSettings +
+                        ';font-kerning:' + elementStyle.fontKerning +
+                        ';font-size:' + elementStyle.fontSize +
+                        ';font-stretch:' + elementStyle.fontStretch +
+                        ';font-style:' + elementStyle.fontStyle +
+                        ';font-variant:' + elementStyle.fontVariant +
+                        ';font-variant-caps:' + elementStyle.fontVariantCaps +
+                        ';font-variant-ligatures:' + elementStyle.fontVariantLigatures +
+                        ';font-variant-numeric:' + elementStyle.fontVariantNumeric +
+                        ';font-weight:' + elementStyle.fontWeight +
+                        ';letter-spacing:' + elementStyle.letterSpacing +
+                        ';margin-left:' + elementStyle.marginLeft +
+                        ';margin-right:' + elementStyle.marginRight +
+                        ';padding-left:' + elementStyle.paddingLeft +
+                        ';padding-right:' + elementStyle.paddingRight +
+                        ';text-indent:' + elementStyle.textIndent +
+                        ';text-transform:' + elementStyle.textTransform
 
     // Helper function that:
-    // 1. Copies the `font-family` and `font-size` of our `elem` onto `ghost`.
+    // 1. Copies `font-family`, `font-size` and other styles of our `element` onto `ghost`.
     // 2. Sets the contents of `ghost` to the specified `str`.
-    // 3. Copies the width of `ghost` onto our `elem`.
+    // 3. Copies the width of `ghost` onto our `element`.
     function set (str) {
-      str = str || elem.value || elem.getAttribute('placeholder') || ''
-      // Ensure that the `ghost` element still exists. If not, create it.
-      if (ghost.parentNode == null) {
+      str = str || element.value || element.getAttribute('placeholder') || ''
+      // Check if the `ghost` element still exists. If no, create it.
+      if (document.getElementById(GHOST_ELEMENT_ID) === null) {
         ghost = createGhostElement()
       }
-      ghost.style.cssText += elemCssText
+      ghost.style.cssText += elementCssText
       ghost.innerHTML = escape(str)
       var width = window.getComputedStyle(ghost).width
-      elem.style.width = width
+      element.style.width = width
       return width
     }
 
     // Call `set` on every `input` event (IE9+).
-    elem.addEventListener('input', function () {
+    element.addEventListener('input', function () {
       set()
     })
 
-    // Initialise the `elem` width.
+    // Initialise the `element` width.
     var width = set()
 
-    // Set `min-width` if `opts.minWidth` was set, and only if the initial
+    // Set `min-width` if `options.minWidth` was set, and only if the initial
     // width is non-zero.
-    if (opts && opts.minWidth && width !== '0px') {
-      elem.style.minWidth = width
+    if (options && options.minWidth && width !== '0px') {
+      element.style.minWidth = width
     }
 
     // Return the `set` function.

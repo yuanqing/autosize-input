@@ -7,7 +7,7 @@
 - Dynamically adjusts the width of the text box to fit its current contents
 - Can be initialised to fit its `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- Super lightweight; just 0.89 KB [minified](autosize-input.min.js), or 0.54 KB minified and gzipped
+- Just 1.14 KB [minified](autosize-input.min.js), or 0.63 KB minified and gzipped
 
 ## Usage
 
@@ -29,9 +29,7 @@
 
 ## Implementation details
 
-- The [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing) property of the given text box is set, inline, to `content-box`. Therefore, the width we assign to our text box *excludes* its `padding` and `border` properties.
-
-- A hidden &ldquo;ghost&rdquo; `div` &mdash; given the same `font-size` and `font-family` as the text box &mdash; is used to compute the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
+- A hidden &ldquo;ghost&rdquo; `div` &mdash; given the same `font-size`, `font-family`, [`box-sizing`](https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing), and horizontal `margin`, `border` and `padding` as the text box &mdash; is used to compute the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
 
 - The single &ldquo;ghost&rdquo; element is shared amongst all the &ldquo;autosized&rdquo; text boxes on the page.
 
@@ -43,11 +41,11 @@ In the browser, `autosizeInput` is a global variable. In Node, do:
 const autosizeInput = require('autosize-input');
 ```
 
-### autosizeInput(elem [, opts])
+### autosizeInput(element [, options])
 
-`elem` is a text `input` element, and `opts` is an object literal.
+`element` is a text `input` element, and `options` is an object literal.
 
-If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `opts.minWidth` to `true`. This will give the `elem` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
+If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `options.minWidth` to `true`. This will give the `element` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
 
 See [Usage](#usage).
 
