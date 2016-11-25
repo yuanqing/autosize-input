@@ -28,18 +28,29 @@
   var ghost = createGhostElement()
 
   function autosizeInput (element, options) {
-    // Apply the `font-size` and `font-family` styles of `element` on the
-    // `ghost` element.
+    // Copy all width-affecting styles to the ghost element
     var elementStyle = window.getComputedStyle(element)
     var elementCssText = 'box-sizing:' + elementStyle.boxSizing +
-                        ';margin-left:' + elementStyle.marginLeft +
-                        ';margin-right:' + elementStyle.marginRight +
                         ';border-left:' + elementStyle.borderLeftWidth + ' solid black' +
                         ';border-right:' + elementStyle.borderRightWidth + ' solid black' +
+                        ';font-family:' + elementStyle.fontFamily +
+                        ';font-feature-settings:' + elementStyle.fontFeatureSettings +
+                        ';font-kerning:' + elementStyle.fontKerning +
+                        ';font-size:' + elementStyle.fontSize +
+                        ';font-stretch:' + elementStyle.fontStretch +
+                        ';font-style:' + elementStyle.fontStyle +
+                        ';font-variant:' + elementStyle.fontVariant +
+                        ';font-variant-caps:' + elementStyle.fontVariantCaps +
+                        ';font-variant-ligatures:' + elementStyle.fontVariantLigatures +
+                        ';font-variant-numeric:' + elementStyle.fontVariantNumeric +
+                        ';font-weight:' + elementStyle.fontWeight +
+                        ';letter-spacing:' + elementStyle.letterSpacing +
+                        ';margin-left:' + elementStyle.marginLeft +
+                        ';margin-right:' + elementStyle.marginRight +
                         ';padding-left:' + elementStyle.paddingLeft +
                         ';padding-right:' + elementStyle.paddingRight +
-                        ';font-family:' + elementStyle.fontFamily +
-                        ';font-size:' + elementStyle.fontSize
+                        ';text-indent:' + elementStyle.textIndent +
+                        ';text-transform:' + elementStyle.textTransform
 
     // Helper function that:
     // 1. Copies `font-family`, `font-size` and other styles of our `element` onto `ghost`.
