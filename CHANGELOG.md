@@ -2,6 +2,7 @@
 
 ## 0.4.0
 - Stop setting `box-sizing: content-box` on the input element
+- Copy other width-affecting styles (eg. `letter-spacing`) to the &ldquo;ghost&rdquo; element
 
 ## 0.3.1
 - Assign an `id` to the &ldquo;ghost&rdquo; element, and use `document.getElementById` to detect if the element still exists in the DOM
