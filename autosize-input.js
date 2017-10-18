@@ -25,9 +25,11 @@
   }
 
   // Create the `ghost` element.
-  var ghost = createGhostElement()
-
+  var ghost
+  
   function autosizeInput (element, options) {
+    ghost = ghost || createGhostElement()
+    
     // Copy all width-affecting styles to the ghost element
     var elementStyle = window.getComputedStyle(element)
     var elementCssText = 'box-sizing:' + elementStyle.boxSizing +
