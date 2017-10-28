@@ -66,7 +66,8 @@
       }
       ghost.style.cssText += elementCssText
       ghost.innerHTML = escape(str)
-      var width = window.getComputedStyle(ghost).width
+      // iOS seems to need a couple extra pixels for its cursor
+      var width = Math.ceil(parseInt(window.getComputedStyle(ghost).width, 10)) + 2 + "px"
       element.style.width = width
       return width
     }

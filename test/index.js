@@ -16,7 +16,7 @@ var fn = function (value, expectedId) {
   var input = document.querySelector('input')
   var expected = document.querySelector(expectedId)
   var inputWidth = Math.round(parseInt(window.getComputedStyle(input).width))
-  var expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width))
+  var expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width) + 2)
   return input.value === value && inputWidth === expectedWidth
 }
 
