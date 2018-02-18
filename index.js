@@ -51,7 +51,7 @@ module.exports = function (element, options) {
   // Assigns an appropriate width to the given `element` based on its contents.
   function setWidth () {
     var string = element.value || element.getAttribute('placeholder') || ''
-    // Check if the `ghostElement` still exists. If no, create it.
+    // Check if the `ghostElement` exists. If no, create it.
     var ghostElement =
       document.getElementById(GHOST_ELEMENT_ID) || createGhostElement()
     // Copy all width-affecting styles to the `ghostElement`.
@@ -73,8 +73,7 @@ module.exports = function (element, options) {
     element.style.minWidth = width
   }
 
-  // Return a function for unbinding the event listener and removing
-  // the `ghostElement`.
+  // Return a function for unbinding the event listener and removing the `ghostElement`.
   return function () {
     element.removeEventListener('input', setWidth)
     var ghostElement = document.getElementById(GHOST_ELEMENT_ID)
