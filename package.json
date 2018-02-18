@@ -8,20 +8,24 @@
     "type": "git",
     "url": "git://github.com/yuanqing/autosize-input.git"
   },
-  "main": "autosize-input.js",
   "devDependencies": {
-    "ecstatic": "2.1.0",
-    "nightmare": "2.8.1",
-    "standard": "8.5.0",
-    "tape": "4.6.2",
-    "uglify-js": "2.7.4"
+    "browserify": "^16.1.0",
+    "concurrently": "^3.5.1",
+    "ecstatic": "^3.2.0",
+    "glob": "^7.1.2",
+    "gzip-size-cli": "^2.1.0",
+    "nightmare": "^2.10.0",
+    "opn-cli": "^3.1.0",
+    "prettier-standard": "^8.0.0",
+    "tape": "^4.8.0",
+    "uglify-js": "^3.3.11",
+    "watchify": "^3.10.0"
   },
   "scripts": {
-    "start": "npm run dist && open 'http://localhost:3142/example'; ecstatic --port 3142",
-    "lint": "standard",
-    "test": "tape test/*.js",
-    "dist": "uglifyjs autosize-input.js --mangle --output autosize-input.min.js",
-    "build": "npm run lint && npm test && npm run dist"
+    "start": "concurrently \"watchify index.js --standalone autosizeInput --outfile bundle.js\" \"ecstatic --port 8080\" \"opn 'http://0.0.0.0:8080/example/'\"",
+    "lint": "prettier-standard index.js test/*.js --no-semi --single-quote --write",
+    "test": "browserify index.js --standalone autosizeInput --outfile bundle.js && tape test",
+    "weight": "uglifyjs index.js --compress --mangle --toplevel | gzip-size"
   },
   "keywords": [
     "autosize",
