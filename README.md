@@ -35,14 +35,14 @@ const autosizeInput = require('autosize-input')
 
 `element` is a text `input` element, and `options` is an object literal.
 
-If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `options.minWidth` to `true`. This will give the `element` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
+- Returns a &ldquo;clean up&rdquo; function for removing the event listener on the `element`.
+- If we do not want the text box to &ldquo;contract&rdquo; as the user starts to type, set `options.minWidth` to `true`. This will give the `element` a `min-width` that fits it initial contents (ie. either the element&rsquo;s intial `value`, or its `placeholder`).
 
 See [Usage](#usage).
 
 ## Implementation details
 
 - A hidden &ldquo;ghost&rdquo; `div` element, assigned the same styles as the text box, is used to calculate the correct width to assign to the text box. This width is recomputed and assigned to the text box on every [`input`](https://developer.mozilla.org/en-US/docs/Web/Events/input) event.
-
 - The single &ldquo;ghost&rdquo; `div` is shared amongst all the &ldquo;autosized&rdquo; text boxes on the page.
 
 ## Installation
