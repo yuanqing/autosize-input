@@ -14,16 +14,18 @@
     "ecstatic": "^3.2.0",
     "glob": "^7.1.2",
     "gzip-size-cli": "^2.1.0",
-    "nightmare": "^2.10.0",
+    "nightmare": "^3.0.0",
     "opn-cli": "^3.1.0",
     "prettier-standard": "^8.0.0",
+    "standard": "^11.0.0",
     "tape": "^4.8.0",
     "uglify-js": "^3.3.11",
     "watchify": "^3.10.0"
   },
   "scripts": {
     "start": "concurrently \"watchify index.js --standalone autosizeInput --outfile bundle.js\" \"ecstatic --port 8080\" \"opn 'http://0.0.0.0:8080/example/'\"",
-    "lint": "prettier-standard index.js test/*.js --no-semi --single-quote --write",
+    "fix": "prettier-standard index.js 'test/**/*.js'",
+    "lint": "standard index.js 'test/**/*.js'",
     "test": "browserify index.js --standalone autosizeInput --outfile bundle.js && tape test",
     "weight": "uglifyjs index.js --compress --mangle --toplevel | gzip-size"
   },
