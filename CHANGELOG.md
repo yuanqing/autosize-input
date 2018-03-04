@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Add `standard`
+- Update dependencies
+
 ## 1.0.0
 
 - Return a &ldquo;clean up&rdquo; function for removing the event listener on the input element
