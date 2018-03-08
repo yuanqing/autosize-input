@@ -1,13 +1,12 @@
-var http = require('http')
-var path = require('path')
-var tape = require('tape')
-var ecstatic = require('ecstatic')
-var Nightmare = require('nightmare')
+const ecstatic = require('ecstatic')
+const glob = require('glob')
+const http = require('http')
+const path = require('path')
+const test = require('tape')
 
-var PORT = 4242
-var ROOT_DIR = path.resolve(__dirname, '..')
-var FIXTURES_URL = 'http://localhost:' + PORT + '/test/fixtures/'
+const testSuite = require('./test-suite')
 
+<<<<<<< HEAD
 var fn = function (value, expectedId) {
   // Code run in the browser to check:
   // 1. The value of our `input` field.
@@ -19,78 +18,32 @@ var fn = function (value, expectedId) {
   var expectedWidth = Math.round(parseInt(window.getComputedStyle(expected).width) + 2)
   return input.value === value && inputWidth === expectedWidth
 }
+=======
+const PORT = 3142
+>>>>>>> 554ca1c8cef9e21af05102304e46af6ca341fc7d
 
-var nightmareOptions = {
-  show: true
-}
+let server
 
-var server
-
-var setUp = function (t) {
+test('set up', function (t) {
   t.plan(1)
-  server = http.createServer(ecstatic({
-    root: ROOT_DIR
-  })).listen(PORT, function () {
-    t.pass()
-  })
-}
+  server = http
+    .createServer(
+      ecstatic({
+        root: path.resolve(__dirname, '..')
+      })
+    )
+    .listen(PORT, function () {
+      t.pass()
+    })
+})
 
-var tearDown = function (t) {
+glob.sync('fixtures/*.html', { cwd: __dirname }).forEach(function (fixture) {
+  testSuite(`http://0.0.0.0:${PORT}/test/${fixture}`)
+})
+
+test('tear down', function (t) {
   t.plan(1)
   server.close(function () {
     t.pass()
   })
-}
-
-var test = function (name) {
-  return function (t) {
-    var fixture = FIXTURES_URL + name + '.html'
-
-    t.test('set up', setUp)
-
-    t.test('initial', function (t) {
-      t.plan(1)
-      new Nightmare(nightmareOptions)
-        .goto(fixture)
-        .wait('input')
-        .evaluate(fn, '', '#initial')
-        .end()
-        .then(function (result) {
-          t.true(result)
-        })
-    })
-
-    t.test('single character', function (t) {
-      t.plan(1)
-      new Nightmare(nightmareOptions)
-        .goto(fixture)
-        .wait('input')
-        .type('input', 'x')
-        .evaluate(fn, 'x', '#singleCharacter')
-        .end()
-        .then(function (result) {
-          t.true(result)
-        })
-    })
-
-    t.test('special characters', function (t) {
-      t.plan(1)
-      new Nightmare(nightmareOptions)
-        .goto(fixture)
-        .wait('input')
-        .type('input', 'x <foo> ')
-        .evaluate(fn, 'x <foo> ', '#specialCharacters')
-        .end()
-        .then(function (result) {
-          t.true(result)
-        })
-    })
-
-    t.test('tear down', tearDown)
-  }
-}
-
-tape('value', test('value'))
-tape('placeholder', test('placeholder'))
-tape('placeholder, min-width', test('placeholder-min-width'))
-tape('border-box', test('border-box'))
+})
