@@ -23,9 +23,10 @@
     "watchify": "^3.10.0"
   },
   "scripts": {
-    "start": "concurrently \"watchify index.js --standalone autosizeInput --outfile bundle.js\" \"ecstatic --port 8080\" \"opn 'http://0.0.0.0:8080/example/'\"",
+    "clean": "rm -rf *.log",
     "fix": "prettier-standard index.js 'test/**/*.js'",
     "lint": "standard index.js 'test/**/*.js'",
+    "start": "concurrently \"watchify index.js --standalone autosizeInput --outfile bundle.js\" \"ecstatic --port 8080\" \"opn 'http://0.0.0.0:8080/example/'\"",
     "test": "browserify index.js --standalone autosizeInput --outfile bundle.js && tape test",
     "weight": "uglifyjs index.js --compress --mangle --toplevel | gzip-size"
   },
