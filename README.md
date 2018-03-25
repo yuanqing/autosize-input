@@ -5,7 +5,7 @@
 - Dynamically adjusts the width of the text box to fit its current contents
 - Can be initialised to fit its `placeholder` attribute
 - Optionally set a `min-width` based on the element&rsquo;s initial content
-- 725 bytes gzipped
+- 718 bytes gzipped
 
 ## Usage
 
