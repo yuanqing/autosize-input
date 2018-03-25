@@ -30,6 +30,9 @@
     "test": "browserify index.js --standalone autosizeInput --outfile bundle.js && tape test",
     "weight": "uglifyjs index.js --compress --mangle --toplevel | gzip-size"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "autosize",
     "dom",
