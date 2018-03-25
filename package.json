@@ -1,6 +1,6 @@
 {
   "name": "autosize-input",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Effortless, dynamic-width text boxes in vanilla JavaScript.",
   "author": "Lim Yuan Qing",
   "license": "MIT",
